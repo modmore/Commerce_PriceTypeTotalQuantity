@@ -1,0 +1,27 @@
+{% if prices|length > 0 %}
+    <table class="table c-quantity-price__container">
+        <thead>
+        <tr>
+            <th class="c-quantity-price__header c-quantity-price__header_quantity">{{ lex('commerce.quantity') }}</th>
+            <th class="c-quantity-price__header c-quantity-price__header_price">{{ lex('commerce.price') }}</th>
+            <th class="c-quantity-price__header c-quantity-price__header_savings">{# Savings #}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for price in prices %}
+            <tr>
+                <td class="c-quantity-price c-quantity-price__quantity">
+                    {{ price.min }}
+                    {%- if price.max > 0 -%}
+                        &ndash;{{ price.max }}
+                    {%- else -%}
+                        &plus;
+                    {%- endif -%}
+                </td>
+                <td class="c-quantity-price c-quantity-price_price">{{ price.price_formatted }}</td>
+                <td class="c-quantity-price c-quantity-price_percentage">&dash;{{ price.discount_percentage }}%</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

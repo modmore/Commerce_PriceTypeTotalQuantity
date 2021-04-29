@@ -30,6 +30,9 @@ class PriceTypeTotalQuantity extends BaseModule {
     {
         $this->adapter->loadLexicon('commerce_pricetypetotalquantity:default');
 
+        $root = dirname(__DIR__, 2);
+        $this->commerce->view()->addTemplatesPath($root . '/templates/');
+
         $dispatcher->addListener(\Commerce::EVENT_DASHBOARD_GET_PRICE_TYPES, [$this, 'registerPriceType']);
     }
 
