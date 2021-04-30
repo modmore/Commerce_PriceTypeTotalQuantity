@@ -50,7 +50,7 @@ class TotalQuantity implements PriceTypeInterface, ItemPriceTypeInterface {
         $items = $order->getItems();
 
         $quantity = 0;
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $quantity += $item->get('quantity');
         }
 

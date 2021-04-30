@@ -1,5 +1,5 @@
-Pricetypetotalquantity for Commerce 0.1.0-pl
+Price Type: Total Quantity for Commerce 1.0.0-pl
 ---------------------------------
-Released on
+Released on 30/04/2021
 
 - First release

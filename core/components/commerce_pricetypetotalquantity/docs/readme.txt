@@ -1,5 +1,6 @@
-Pricetypetotalquantity for Commerce
+Price Type: Total Quantity for Commerce
 ------------------------
 
-A short description of what Pricetypetotalquantity does or how to set it up.
+"Price Type: Total Quantity" allows a discount to be applied to all the items in your cart when a certain quantity is reached.
+This threshold can be specified in the Pricing tab when editing products.
 

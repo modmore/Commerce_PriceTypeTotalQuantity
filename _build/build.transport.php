@@ -24,7 +24,7 @@ if (!defined('MOREPROVIDER_BUILD')) {
     define('PKG_NAME', 'Commerce_Pricetypetotalquantity');
     define('PKG_NAMESPACE', 'commerce_pricetypetotalquantity');
     define('PKG_VERSION', '1.0.0');
-    define('PKG_RELEASE', 'rc1');
+    define('PKG_RELEASE', 'pl');
 
     /* load modx */
     require_once dirname(__DIR__) . '/config.core.php';
@@ -124,6 +124,52 @@ $modx->log(modX::LOG_LEVEL_INFO,'Packaged in core, requirements validator, and m
 //    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in ' . count($settings) . ' system settings.'); flush();
 //    unset($settings,$setting,$attributes);
 //}
+
+/**
+ * Category
+ */
+$category= $modx->newObject('modCategory');
+$category->set('category','Commerce_PriceTypeTotalQuantity');
+$modx->log(modX::LOG_LEVEL_INFO,'Created category.');
+
+/**
+ * Snippets
+ */
+$snippetSource = include $sources['data'].'snippets.php';
+$snippets = [];
+foreach($snippetSource as $name => $options) {
+    $snippets[$name] = $modx->newObject('modSnippet');
+    $snippets[$name]->fromArray([
+        'name' => $options['name'],
+        'description' => $options['description'],
+        'snippet' => getSnippetContent($sources['snippets'].$options['file']),
+    ],'',true,true);
+}
+$category->addMany($snippets);
+unset($snippets);
+$modx->log(modX::LOG_LEVEL_INFO,'Packaged in snippets.');
+
+$attr = [
+    xPDOTransport::UNIQUE_KEY => 'category',
+    xPDOTransport::PRESERVE_KEYS => false,
+    xPDOTransport::UPDATE_OBJECT => true,
+    xPDOTransport::RELATED_OBJECTS => true,
+    xPDOTransport::RELATED_OBJECT_ATTRIBUTES => [
+        'Chunks' => [
+            xPDOTransport::PRESERVE_KEYS => false,
+            xPDOTransport::UPDATE_OBJECT => true,
+            xPDOTransport::UNIQUE_KEY => 'name',
+        ],
+        'Snippets' => [
+            xPDOTransport::PRESERVE_KEYS => false,
+            xPDOTransport::UPDATE_OBJECT => true,
+            xPDOTransport::UNIQUE_KEY => 'name',
+        ],
+    ]
+];
+
+$vehicle = $builder->createVehicle($category,$attr);
+$builder->putVehicle($vehicle);
 
 /* now pack in the license file, readme and setup options */
 $builder->setPackageAttributes([
