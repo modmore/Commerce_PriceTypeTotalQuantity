@@ -4,7 +4,7 @@ namespace modmore\Commerce_PriceTypeTotalQuantity\Modules;
 use modmore\Commerce\Events\Admin\PriceTypes;
 use modmore\Commerce\Modules\BaseModule;
 use modmore\Commerce_PriceTypeTotalQuantity\Pricing\PriceType\TotalQuantity;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use modmore\Commerce\Dispatcher\EventDispatcher;
 
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
